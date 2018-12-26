@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:background="#000"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.hsc.mdtouch.Chat"
+    >
+
+    <ListView
+        android:divider="#fff"
+        android:id="@+id/listview"
+        android:padding="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:stackFromBottom="true"
+        android:transcriptMode="alwaysScroll"
+        android:layout_above="@+id/linearlayout"
+        >
+
+    </ListView>
+
+    <LinearLayout
+        android:id="@+id/linearlayout"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimaryDark"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal">
+
+        <EditText
+            android:background="@null"
+            android:textColor="#000"
+            android:textCursorDrawable="@null"
+            android:layout_gravity="center"
+            android:id="@+id/edittext"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:hint="Write a message"
+            android:inputType="text"
+            />
+
+        <ImageButton
+            android:layout_gravity="center"
+            android:background="@color/colorPrimaryDark"
+            android:id="@+id/sendbutton"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@mipmap/send"
+            />
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:progressBackgroundTint="#ff0051"
+        android:visibility="visible"
+        android:id="@+id/progressbar"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+
+        />
+
+</RelativeLayout>

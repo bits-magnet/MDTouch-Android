@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "50877206608",
+    "firebase_url": "https://mdtouch-b4f4a.firebaseio.com",
+    "project_id": "mdtouch-b4f4a",
+    "storage_bucket": "mdtouch-b4f4a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:50877206608:android:a2539b97b0b84b29",
+        "android_client_info": {
+          "package_name": "com.example.hsc.mdtouch"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "50877206608-0dr57qae1l0dm90068g6sh77uobg0t15.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDN4mwqCMiHi-5jB5IPUkbOQhDt5vhw-68"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
