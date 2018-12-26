@@ -6,6 +6,7 @@ public class Appointment {
     private String hospital;
     private String doctor;
     private String problem;
+    private String hello;
 
     public Appointment(){
 
