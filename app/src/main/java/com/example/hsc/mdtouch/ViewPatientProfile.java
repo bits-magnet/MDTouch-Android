@@ -10,6 +10,7 @@ import android.location.GpsSatellite;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -27,13 +28,21 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 public class ViewPatientProfile extends AppCompatActivity implements LocationListener {
 
@@ -45,12 +54,27 @@ public class ViewPatientProfile extends AppCompatActivity implements LocationLis
     AlertDialog.Builder dialog;
     Spinner spin;
 
+    String username;
+
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference ref;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_patient_profile);
 
         Initialize();
+
+        username = getIntent().getExtras().getString("username");
+
+        ref = database.getReference().child("patients").child(username);
+
+        Listener(ref, "Smoking Habits",R.id.smoking_habits);
+        Listener(ref, "Alcohol Consumption", R.id.alcohol);
+        Listener(ref, "Activity Level", R.id.activity);
+        Listener(ref, "Food preference", R.id.food);
+        Listener(ref, "Occupation", R.id.profession);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -70,6 +94,12 @@ public class ViewPatientProfile extends AppCompatActivity implements LocationLis
 
     }
 
+    public void Listener(DatabaseReference ref, String name , final int id){
+
+
+
+    }
+
     private void Initialize() {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -79,7 +109,9 @@ public class ViewPatientProfile extends AppCompatActivity implements LocationLis
 
     }
 
-    public void CommonDialog(String name, final String array[], final int id){
+    public void CommonDialog(final String name, final String array[], final int id){
+
+        username = getIntent().getExtras().getString("username");
 
         spin = new Spinner(this);
         dialog = new AlertDialog.Builder(this);
@@ -101,6 +133,10 @@ public class ViewPatientProfile extends AppCompatActivity implements LocationLis
         dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+
+                ref = database.getReference().child("patients").child(username) ;
+                ref.child(name).setValue(array[spin.getSelectedItemPosition()]);
+
                 TextView text = (TextView) findViewById(id);
                 assert text != null;
                 text.setText(array[spin.getSelectedItemPosition()]);

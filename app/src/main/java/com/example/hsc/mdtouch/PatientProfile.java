@@ -35,6 +35,8 @@ public class PatientProfile extends AppCompatActivity {
         Intent i = new Intent(PatientProfile.this,ViewPatientProfile.class);
 
         String s = getIntent().getExtras().getString("data");
+        String s1 = getIntent().getExtras().getString("username");
+        i.putExtra("username",s1);
         i.putExtra("data",s);
 
         startActivity(i);

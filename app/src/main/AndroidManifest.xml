@@ -38,8 +38,6 @@
             android:label="@string/title_activity_pager"
             android:theme="@style/AppTheme" >
         </activity>
-        <activity android:name=".Scroll" >
-        </activity>
         <activity android:name=".MyDoctors" >
         </activity>
         <activity android:name=".Events" >

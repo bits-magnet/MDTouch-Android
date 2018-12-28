@@ -134,7 +134,7 @@
     </android.support.design.widget.TextInputLayout>
 
     <TextView
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="3dp"
         android:layout_marginStart="20dp"
         android:textColor="#8f7d7d"
         android:layout_width="wrap_content"
@@ -181,6 +181,7 @@
         />
 
     <TextView
+        android:onClick="ForgetPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"

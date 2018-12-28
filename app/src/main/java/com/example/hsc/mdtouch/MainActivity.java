@@ -3,6 +3,7 @@ package com.example.hsc.mdtouch;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -19,7 +20,6 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -138,6 +138,13 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    public void ForgetPassword(View view) {
+
+        Intent i = new Intent("android.intent.action.VIEW", Uri.parse("https://mdtouch.herokuapp.com/password/"));
+        startActivity(i);
+
+    }
+
     private class CheckUser extends AsyncTask<Void,Void,Boolean>{
         String username,password;
         String fn,ln,no,str,s1,s2;
@@ -148,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
             password = b;
 
             if(c.equals("p"))
-                url+="patient/";
+                url+="patient/?username="+username+"&password="+password;
             else
                 url+="login/";
         }
@@ -174,46 +181,25 @@ public class MainActivity extends AppCompatActivity {
 
             str = helper.get(url);
 
-            String jsonStr = "{ \"data\":" + str +"}";
+            if(str.length()!=2) {
 
-            try{
+                try {
+                    str = str.substring(1, str.length() - 1);
 
-                JSONObject obj = new JSONObject(jsonStr);
-                JSONArray arr = obj.getJSONArray("data");
-
-                for(int i=0; i<arr.length(); i++) {
-
-                    JSONObject o = arr.getJSONObject(i);
+                    JSONObject o = new JSONObject(str);
 
                     s1 = o.getString("username");
                     s2 = o.getString("password");
 
-                    Log.i("TAG",""+s1+" "+s2);
+                    fn = o.getString("firstName");
+                    ln = o.getString("lastName");
+                    no = o.getString("number");
 
-                    if(url.contains("login")){
-                        String s = o.getString("dept");
+                } catch (JSONException ignored) {
 
-                        if(username.equals(s1) && password.equals(s2) && s.equals("D")){
-
-                            str = o.toString();
-
-                            return true;
-                        }
-
-                    }
-                    else if(username.equals(s1) && password.equals(s2)){
-                        fn = o.getString("firstName");
-                        ln = o.getString("lastName");
-                        no = o.getString("number");
-
-                        str = o.toString();
-
-                        return true;
-                    }
                 }
 
-            } catch (JSONException ignored) {
-
+                return true;
             }
 
             return false;
@@ -235,12 +221,13 @@ public class MainActivity extends AppCompatActivity {
 
                 if(url.contains("patient")){
 
-                    ref = database.getReference().child("patients");
-                    ref.child(s1).setValue(s2);
+                    ref = database.getReference().child("patients").child(s1);
+                    ref.child("password").setValue(s2);
 
                     i = new Intent(MainActivity.this,PatientProfile.class);
                     i.putExtra("name",fn+" "+ln);
                     i.putExtra("number",no);
+                    i.putExtra("username",username);
                     i.putExtra("data",str);
                 }else{
 
@@ -255,7 +242,15 @@ public class MainActivity extends AppCompatActivity {
                 finish();
 
             }else{
-                Snackbar.make(findViewById(R.id.root), "Invalid Details, Please try again!", Snackbar.LENGTH_LONG).show();
+
+                Snackbar.make(findViewById(R.id.root), "Invalid Details, Please try again!", Snackbar.LENGTH_LONG)
+                        .setAction("OK", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                            }
+                        })
+                        .show();
             }
 
         }

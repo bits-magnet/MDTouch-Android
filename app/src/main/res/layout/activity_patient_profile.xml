@@ -104,34 +104,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="4dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
-
-            <TextView
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="#000"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="16dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="MDTouch Drive"
-                />
-
-            <TextView
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="8dp"
-                android:textSize="14sp"
-                android:textColor="#000"
-                android:layout_marginStart="16dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="A secure space for all your appointments details, medical records and your medical problems."
-                />
-
             <TextView
                 android:layout_marginBottom="8dp"
                 android:textSize="16sp"
@@ -143,8 +115,6 @@
                 android:layout_height="wrap_content"
                 android:text="How we keep your data secure?"
                 />
-
-        </LinearLayout>
 
 
     </android.support.v7.widget.CardView>
