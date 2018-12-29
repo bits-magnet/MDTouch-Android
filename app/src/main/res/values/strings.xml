@@ -7,19 +7,52 @@
 
     <string name="action_settings">Settings</string>
 
-    <array name="hospitals">
+    <array name="cities">
 
-        <item>JK Hospital</item>
-        <item>AB Hospital</item>
-        <item>Hospital Healthy</item>
+        <item>Delhi</item>
+        <item>Indore</item>
 
     </array>
 
-    <array name="doctors">
+    <array name="states">
 
-        <item>doctor1</item>
-        <item>Dr. Neelam</item>
-        <item>Gaitonde Apun</item>
+        <item>Andhra Pradesh</item>
+        <item>Andaman and Nicobar</item>
+        <item>Arunachal Pradesh</item>
+        <item>Assam</item>
+        <item>Bihar</item>
+        <item>Chattisgarh</item>
+        <item>Chandigarh</item>
+        <item>Dadra and Nagar</item>
+        <item>Daman and Diu</item>
+        <item>Delhi</item>
+        <item>Goa</item>
+        <item>Gujarat</item>
+        <item>Haryana</item>
+        <item>Himachal Pradesh</item>
+        <item>Jammu and Kashmir</item>
+        <item>Jharkhand</item>
+        <item>Karnataka</item>
+        <item>Kerala</item>
+        <item>Lakshadweep</item>
+        <item>Madhya Pradesh</item>
+        <item>Maharashtra</item>
+        <item>Manipur</item>
+        <item>Meghalaya</item>
+        <item>Mizoram</item>
+        <item>Nagaland</item>
+        <item>Odisha</item>
+        <item>Punjab</item>
+        <item>Pondicherry</item>
+        <item>Rajasthan</item>
+        <item>Sikkim</item>
+        <item>Tamil Nadu</item>
+        <item>Telangana</item>
+        <item>Tripura</item>
+        <item>Uttar Pradesh</item>
+        <item>Uttarakhand</item>
+        <item>West Bengal</item>
+
 
     </array>
     <string name="title_activity_pager">PagerActivity</string>

@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 public class PatientProfile extends AppCompatActivity {
 
+    String s1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,7 +19,7 @@ public class PatientProfile extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.patient_toolbar);
         setSupportActionBar(toolbar);
 
-        String s1 = getIntent().getExtras().getString("name");
+        s1 = getIntent().getExtras().getString("name");
         String s2 = getIntent().getExtras().getString("number");
 
         TextView name = (TextView) findViewById(R.id.name);
@@ -46,6 +48,7 @@ public class PatientProfile extends AppCompatActivity {
     public void Appointments(View v){
 
         Intent i= new Intent(PatientProfile.this,PatientAppointments.class);
+        i.putExtra("name",s1);
         startActivity(i);
 
     }

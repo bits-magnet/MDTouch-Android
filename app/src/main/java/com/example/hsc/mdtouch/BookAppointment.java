@@ -5,23 +5,30 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.graphics.Color;
+
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class BookAppointment extends AppCompatActivity {
-
-    ArrayList<String> hospitals = new ArrayList<>();
-    Spinner hospital;
-    ArrayAdapter<String> adp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,27 +42,81 @@ public class BookAppointment extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        new GetHospitals().execute();
+        CardView myselfCard = (CardView)findViewById(R.id.card_myself);
+        CardView otherCard = (CardView) findViewById(R.id.card_other);
 
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException ignored) {
+        final TextView myself = (TextView) findViewById(R.id.myself);
+        final TextView other = (TextView) findViewById(R.id.other);
 
-        }
+        final EditText patient = (EditText) findViewById(R.id.patient_name);
 
-        hospital = (Spinner) findViewById(R.id.hospital_list);
-        adp = new ArrayAdapter<>(this,R.layout.support_simple_spinner_dropdown_item,hospitals);
-        hospital.setAdapter(adp);
+        final String s = getIntent().getExtras().getString("name");
+
+        assert patient != null;
+        patient.setText(s);
+
+        assert myselfCard != null;
+        myselfCard.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                assert myself != null;
+                assert other != null;
+                myself.setTextColor(Color.BLUE);
+                other.setTextColor(Color.BLACK);
+                assert patient != null;
+                patient.setText(s);
+
+                return false;
+            }
+        });
+
+        assert otherCard != null;
+        otherCard.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                assert myself != null;
+                assert other != null;
+                myself.setTextColor(Color.BLACK);
+                other.setTextColor(Color.BLUE);
+                assert patient != null;
+                patient.setText("");
+
+                return false;
+            }
+        });
+
+        final Spinner state = (Spinner) findViewById(R.id.states);
+        final Spinner city = (Spinner) findViewById(R.id.cities);
+        ArrayList<String> states;
+        states = LoadPlace("states","");
+
+        final ArrayAdapter<String> adp = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,states);
+        adp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        assert state != null;
+        state.setAdapter(adp);
+
+        final ArrayList<String> finalStates = states;
+        state.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String s = finalStates.get(position);
+
+                ArrayList<String> cities = LoadPlace("cities", s);
+                adapt(city, cities);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
 
     }
 
     public void RequestDoctor(View v){
-
-        /*
-        EditText patient = (EditText) findViewById(R.id.patient_name);
-        EditText problem = (EditText) findViewById(R.id.problem);
-        Spinner doctor = (Spinner) findViewById(R.id.doctor_list);
-           */
 
         Intent i = new Intent(BookAppointment.this,Chat.class);
         startActivity(i);
@@ -74,63 +135,51 @@ public class BookAppointment extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private class GetHospitals extends AsyncTask<Void,Void,Boolean> {
+    public void adapt(Spinner city, ArrayList<String> cities){
 
-        private String URL = "https://mdtouch.herokuapp.com/MDTouch/api/hospital/";
+        ArrayAdapter<String> adp = new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,cities);
+        city.setAdapter(adp);
 
-        String s1,s2;
-        ProgressDialog dialog;
+    }
 
-        @Override
-        protected void onPreExecute() {
+    private ArrayList<String> LoadPlace(String place,String city) {
 
-            super.onPreExecute();
+        String json = null;
 
-            dialog = new ProgressDialog(BookAppointment.this);
-            dialog.setMessage("Loading ...");
-            dialog.setCancelable(false);
-            dialog.show();
+        ArrayList<String> places = new ArrayList<String>();
 
-        }
+        try{
+            InputStream in = getAssets().open("data.json");
 
-        @Override
-        protected Boolean doInBackground(Void... params) {
+            byte[] buffer = new byte[in.available()];
 
-            HttpHelper helper = new HttpHelper();
+            in.read(buffer);
+            in.close();
 
-            String jsonStr = "{ \"data\":" + helper.get(URL) +"}";
+            json = new  String(buffer,"UTF-8");
 
-            try{
+        } catch (IOException ignored) {}
 
-                JSONObject obj = new JSONObject(jsonStr);
-                JSONArray arr = obj.getJSONArray("data");
+        try {
+            JSONObject o = new JSONObject(json);
 
-                for(int i=0; i<arr.length(); i++) {
+            if(place.equals("cities")){
+                JSONObject s = new JSONObject(o.getString("cities"));
+                JSONArray y = s.getJSONArray(city);
 
-                    JSONObject o = arr.getJSONObject(i);
+                for(int i=0;i<y.length();i++)
+                    places.add(y.getString(i));
 
-                    s1 = o.getString("name");
-                    s2 = o.getString("city");
+            }else{
 
-                    hospitals.add(s1+", "+s2);
-
-                }
-
-            } catch (JSONException ignored) {
+                JSONArray a = o.getJSONArray(place);
+                for(int i=0;i<a.length();i++)
+                    places.add(a.getString(i));
 
             }
+        } catch (JSONException ignored) {}
 
-            return false;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean aBoolean) {
-            super.onPostExecute(aBoolean);
-
-            if(dialog.isShowing())
-                dialog.dismiss();
-
-        }
+        return places;
     }
 
 }

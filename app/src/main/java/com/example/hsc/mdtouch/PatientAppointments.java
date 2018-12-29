@@ -24,6 +24,8 @@ public class PatientAppointments extends AppCompatActivity {
     public void BookAppointment(View v){
 
         Intent i = new Intent(PatientAppointments.this,BookAppointment.class);
+        String s = getIntent().getExtras().getString("name");
+        i.putExtra("name",s);
         startActivity(i);
 
     }
