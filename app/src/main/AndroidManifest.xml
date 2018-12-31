@@ -3,8 +3,8 @@
     package="com.example.hsc.mdtouch" >
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -45,6 +45,10 @@
         <activity android:name=".MedicalRecords" >
         </activity>
         <activity android:name=".MedicalServices" >
+        </activity>
+        <activity android:name=".Hospitals" >
+        </activity>
+        <activity android:name=".Doctors" >
         </activity>
     </application>
 

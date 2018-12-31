@@ -87,37 +87,88 @@
 
             </LinearLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+            <LinearLayout
                 android:layout_marginTop="16dp"
-                android:gravity="center"
-                android:text="Patient Name"
-                android:textColor="#000"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <android.support.v7.widget.CardView
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Patient Id"
+                    android:textColor="#000"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Choose Date"
+                    android:textColor="#000"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:background="#FFFFFF"
-                card_view:cardCornerRadius="10dp">
+                android:orientation="horizontal"
+                >
 
-                <EditText
-                    android:id="@+id/patient_name"
-                    android:layout_width="match_parent"
+                <android.support.v7.widget.CardView
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:background="@null"
-                    android:maxLines="1"
-                    android:padding="8dp"
-                    android:textColor="#000"
-                    android:textCursorDrawable="@null"
-                    android:textSize="16sp" />
+                    android:background="#FFFFFF"
+                    card_view:cardCornerRadius="10dp">
 
-            </android.support.v7.widget.CardView>
+                    <EditText
+                        android:gravity="center"
+                        android:id="@+id/patient_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:inputType="number"
+                        android:padding="8dp"
+                        android:textColor="#000"
+                        android:textCursorDrawable="@null"
+                        android:textSize="16sp" />
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="#FFFFFF"
+                    card_view:cardCornerRadius="10dp">
+
+                    <TextView
+                        android:gravity="center"
+                        android:id="@+id/date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:textColor="#000"
+                        android:textSize="16sp" />
+
+                </android.support.v7.widget.CardView>
+
+            </LinearLayout>
+
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -199,11 +250,16 @@
                 android:layout_marginTop="24dp"
                 card_view:cardCornerRadius="10dp">
 
-                <Spinner
+                <TextView
+                    android:id="@+id/hospital"
+                    android:onClick="GetHospital"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:id="@+id/hospitals"
-                    android:padding="8dp"/>
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Select  Hospital  >"
+                    android:padding="10dp"
+                    android:textColor="#000000"
+                    android:textStyle="bold" />
 
             </android.support.v7.widget.CardView>
 
@@ -215,18 +271,23 @@
                 android:layout_marginTop="16dp"
                 card_view:cardCornerRadius="10dp">
 
-                <Spinner
+                <TextView
+                    android:id="@+id/doctor"
+                    android:onClick="GetDoctor"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:id="@+id/doctors"
-                    android:padding="8dp"/>
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Select  Doctor  >"
+                    android:padding="10dp"
+                    android:textColor="#000000"
+                    android:textStyle="bold" />
 
             </android.support.v7.widget.CardView>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="16dp"
                 android:gravity="center"
                 android:text="How can the Doctor Help?"
                 android:textColor="#000000"
@@ -269,7 +330,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:onClick="RequestDoctor"
+                    android:id="@+id/request"
                     android:padding="14dp"
                     android:text="Request Doctor"
                     android:textColor="#000000"

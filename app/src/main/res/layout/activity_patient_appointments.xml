@@ -15,33 +15,32 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <LinearLayout
-        android:layout_marginTop="50dp"
-        android:id="@+id/emptyview"
+    <ListView
+        android:divider="@android:color/transparent"
+        android:dividerHeight="10.0sp"
+        android:layout_margin="10dp"
+        android:id="@+id/appointment_list"
+        android:layout_above="@+id/book"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:layout_below="@+id/patient_appointments_toolbar"
         >
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:src="@mipmap/clinic"
-            />
 
-        <TextView
-            android:gravity="center"
-            android:textSize="18sp"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:text="You don't have any appointments."
-            android:textColor="#000"
-            />
+    </ListView>
 
-
-    </LinearLayout>
+    <TextView
+        android:id="@+id/empty"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="No appointments."
+        android:textColor="#000"
+        />
 
     <LinearLayout
+        android:id="@+id/book"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -61,7 +60,7 @@
                 android:textStyle="bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Book an appointment"
+                android:text="Book a Appointment"
                 android:textColor="#fff"
                 />
 

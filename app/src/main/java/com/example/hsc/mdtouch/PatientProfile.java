@@ -47,8 +47,9 @@ public class PatientProfile extends AppCompatActivity {
 
     public void Appointments(View v){
 
+        String s1 = getIntent().getExtras().getString("id");
         Intent i= new Intent(PatientProfile.this,PatientAppointments.class);
-        i.putExtra("name",s1);
+        i.putExtra("id",s1);
         startActivity(i);
 
     }

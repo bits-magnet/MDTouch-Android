@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
 
     private class CheckUser extends AsyncTask<Void,Void,Boolean>{
         String username,password;
-        String fn,ln,no,str,s1,s2;
+        String fn,ln,no,str,s1,s2,s3;
         String url = URL;
 
         public CheckUser(String a, String b,String c){
@@ -190,6 +190,7 @@ public class MainActivity extends AppCompatActivity {
 
                     s1 = o.getString("username");
                     s2 = o.getString("password");
+                    s3 = o.getString("id");
 
                     fn = o.getString("firstName");
                     ln = o.getString("lastName");
@@ -229,6 +230,7 @@ public class MainActivity extends AppCompatActivity {
                     i.putExtra("number",no);
                     i.putExtra("username",username);
                     i.putExtra("data",str);
+                    i.putExtra("id",s3);
                 }else{
 
                     ref = database.getReference().child("doctors");
