@@ -112,7 +112,7 @@
     <android.support.design.widget.TextInputLayout
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Username"
@@ -174,7 +174,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:text="LOGIN"
         android:textSize="16sp"
         android:textColor="#000000"
@@ -184,11 +184,23 @@
         android:onClick="ForgetPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="12dp"
         android:gravity="center"
         android:text="Forgot Your Password?"
         android:textColor="#FFFFFF"
-        android:textSize="20sp"
+        android:textSize="18sp"
+
+        />
+
+    <TextView
+        android:onClick="Register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="Don't Have Account? Register."
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
 
         />
 

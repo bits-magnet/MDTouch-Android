@@ -3,15 +3,15 @@ package com.example.hsc.mdtouch;
 public class Message {
 
     private String text;
-    private String name;
+    private String sender;
+    private String createdAt;
 
     public Message(){
 
     }
 
-    public Message(String text, String name) {
+    public Message(String text) {
         this.text = text;
-        this.name = name;
     }
 
     public String getText() {
@@ -22,12 +22,13 @@ public class Message {
         this.text = text;
     }
 
-    public String getName() {
-        return name;
+    public String getSender() {
+        return sender;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setSender(String s) {
+        this.sender = s;
     }
+
 
 }

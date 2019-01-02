@@ -45,6 +45,8 @@ public class AppointmentAdapter extends ArrayAdapter<Appointment> {
             mStatus.setTextColor(Color.GREEN);
         else if(status.equals("Rejected"))
             mStatus.setTextColor(Color.RED);
+        else
+            mStatus.setTextColor(Color.parseColor("#ff8400"));
 
         return listItemView;
     }

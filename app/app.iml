@@ -99,9 +99,10 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.firebase/firebase-database-collection/16.0.0/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.firebase/firebase-database/16.0.4/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.firebase/firebase-iid-interop/16.0.1/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.firebase/firebase-iid/17.0.3/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.firebase/firebase-iid/17.0.4/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.firebase/firebase-measurement-connector-impl/17.0.2/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.firebase/firebase-measurement-connector/17.0.1/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.firebase/firebase-messaging/17.3.4/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/jacoco" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/javaResources" />
@@ -143,8 +144,8 @@
     <orderEntry type="library" exported="" name="cardview-v7-23.0.0" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-26.1.0" level="project" />
     <orderEntry type="library" exported="" name="support-v4-26.1.0" level="project" />
-    <orderEntry type="library" exported="" name="firebase-iid-17.0.3" level="project" />
     <orderEntry type="library" exported="" name="support-fragment-26.1.0" level="project" />
+    <orderEntry type="library" exported="" name="firebase-iid-17.0.4" level="project" />
     <orderEntry type="library" exported="" name="runtime-1.0.0" level="project" />
     <orderEntry type="library" exported="" name="firebase-database-16.0.4" level="project" />
     <orderEntry type="library" exported="" name="common-1.0.0" level="project" />
@@ -152,5 +153,6 @@
     <orderEntry type="library" exported="" name="play-services-tasks-16.0.1" level="project" />
     <orderEntry type="library" exported="" name="firebase-database-collection-16.0.0" level="project" />
     <orderEntry type="library" exported="" name="firebase-analytics-16.0.4" level="project" />
+    <orderEntry type="library" exported="" name="firebase-messaging-17.3.4" level="project" />
   </component>
 </module>

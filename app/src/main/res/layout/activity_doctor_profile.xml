@@ -43,7 +43,7 @@
                 android:layout_marginTop="4dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="DR. Gayatri Mehta"
+                android:id="@+id/name"
                 android:textColor="#fff"
                 android:textStyle="bold"
                 android:gravity="center"
@@ -55,7 +55,7 @@
                 android:layout_marginTop="14dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="MBBS, MD"
+                android:id="@+id/qualification"
                 android:textColor="#9c9a9a"
                 android:gravity="center"
                 android:textSize="16sp"
@@ -66,7 +66,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Gynecologist/Obstetrician"
+                android:id="@+id/specialization"
                 android:textColor="#9c9a9a"
                 android:gravity="center"
                 android:textSize="16sp"
@@ -78,7 +78,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="7 years experience"
+                android:id="@+id/experience"
                 android:textColor="#9c9a9a"
                 android:gravity="center"
                 android:textSize="16sp"
@@ -103,7 +103,7 @@
             >
 
             <TextView
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="#000"
                 android:layout_marginTop="8dp"
@@ -122,7 +122,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="CHL Apollo, Indore"
+                android:id="@+id/hospital"
                 />
 
 

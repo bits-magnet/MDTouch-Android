@@ -1,11 +1,16 @@
 package com.example.hsc.mdtouch;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+
 
 public class PatientProfile extends AppCompatActivity {
 
@@ -18,6 +23,13 @@ public class PatientProfile extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.patient_toolbar);
         setSupportActionBar(toolbar);
+        assert toolbar != null;
+        toolbar.setTitleTextColor(Color.WHITE);
+
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("MDTouch");
+        }
+        toolbar.setTitleTextColor(Color.WHITE);
 
         s1 = getIntent().getExtras().getString("name");
         String s2 = getIntent().getExtras().getString("number");
@@ -29,6 +41,38 @@ public class PatientProfile extends AppCompatActivity {
         name.setText(s1);
         assert number != null;
         number.setText(s2);
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.patient_menu,menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()){
+
+            case R.id.logout:
+
+                SessionManager session = new SessionManager(getApplicationContext());
+                session.clearSession();
+
+                Intent i = new Intent(PatientProfile.this,MainActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(i);
+                finish();
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
 
     }
 
@@ -57,6 +101,7 @@ public class PatientProfile extends AppCompatActivity {
     public void MyDoctors(View v){
 
         Intent i = new Intent(PatientProfile.this,MyDoctors.class);
+        i.putExtra("name",s1);
         startActivity(i);
 
     }

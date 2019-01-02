@@ -13,30 +13,28 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <LinearLayout
-        android:layout_marginTop="50dp"
-        android:id="@+id/emptyview"
+    <ListView
+        android:divider="@android:color/transparent"
+        android:dividerHeight="10.0sp"
+        android:layout_margin="10dp"
+        android:id="@+id/my_doctors_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:layout_below="@+id/my_doctors_toolbar"
         >
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:src="@mipmap/clinic"
-            />
 
-        <TextView
-            android:gravity="center"
-            android:textSize="18sp"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:text="No doctors found."
-            android:textColor="#000"
-            />
+    </ListView>
 
-
-    </LinearLayout>
+    <TextView
+        android:layout_below="@+id/my_doctors_toolbar"
+        android:id="@+id/empty_my_doctors"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="No Doctors Appointed."
+        android:textColor="#000"
+        />
 
 </RelativeLayout>

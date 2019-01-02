@@ -34,7 +34,6 @@ public class PagerActivity extends AppCompatActivity {
 
         SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-
         ViewPager mViewPager = (ViewPager) findViewById(R.id.container);
         assert mViewPager != null;
         mViewPager.setAdapter(mSectionsPagerAdapter);
@@ -60,7 +59,6 @@ public class PagerActivity extends AppCompatActivity {
     }
 
     public void Finish(View v){
-        Utils.saveSharedSetting(PagerActivity.this,MainActivity.PREF,"false");
         finish();
     }
 

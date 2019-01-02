@@ -3,147 +3,137 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="380dp"
-    android:layout_height="400dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:background="@color/colorPrimaryDark"
     android:orientation="vertical"
     tools:context="com.example.hsc.mdtouch.BookAppointment">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:layout_weight="1"
-        android:layout_height="0dp">
+        android:layout_height="wrap_content">
 
         <TextView
             android:text="Date : "
             android:textColor="#fff"
             android:textSize="16sp"
             android:padding="10dp"
-            android:layout_weight="1"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <TextView
+            android:layout_marginStart="100dp"
+            android:text="2019-12-12"
             android:id="@+id/date"
-            android:layout_weight="3"
-            android:text="2019-12-13"
             android:textColor="#fff"
             android:textSize="16sp"
             android:padding="10dp"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
-    <LinearLayout
-        android:layout_weight="1"
+    <RelativeLayout
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:layout_height="0dp">
+        android:layout_height="wrap_content">
 
         <TextView
             android:text="Doctor : "
             android:textColor="#fff"
             android:textSize="16sp"
             android:padding="10dp"
-            android:layout_weight="1"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <TextView
+            android:layout_marginStart="100dp"
+            android:text="Dr. MatTrickster MatT"
             android:id="@+id/doctor"
-            android:layout_weight="3"
-            android:text="Dr. Virat Kohli"
             android:textColor="#fff"
             android:textSize="16sp"
             android:padding="10dp"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
-    <LinearLayout
-        android:layout_weight="1"
+    <RelativeLayout
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:layout_height="0dp">
+        android:layout_height="wrap_content">
 
         <TextView
             android:text="Hospital : "
             android:textColor="#fff"
             android:textSize="16sp"
             android:padding="10dp"
-            android:layout_weight="1"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <TextView
+            android:layout_marginStart="100dp"
+            android:text="Bits Magnet Bhopal"
             android:id="@+id/hospital"
-            android:layout_weight="3"
-            android:text="Bits Magnet, Bhopal"
             android:textColor="#fff"
             android:textSize="16sp"
             android:padding="10dp"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
-    <LinearLayout
-        android:layout_weight="1"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:layout_height="0dp">
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content">
 
         <TextView
             android:text="Status : "
             android:textColor="#fff"
             android:textSize="16sp"
             android:padding="10dp"
-            android:layout_weight="1"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <TextView
-            android:id="@+id/status"
-            android:layout_weight="3"
+            android:layout_marginStart="100dp"
             android:text="Accepted"
+            android:id="@+id/status"
             android:textColor="#fff"
             android:textSize="16sp"
             android:padding="10dp"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
-    <LinearLayout
-        android:layout_weight="2"
+    <RelativeLayout
         android:layout_marginBottom="20dp"
         android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:layout_height="0dp">
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content">
 
         <TextView
             android:text="Problem : "
             android:textColor="#fff"
             android:textSize="16sp"
             android:padding="10dp"
-            android:layout_weight="1"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <TextView
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="100dp"
+            android:text="Im Having a lot of problems in the stomach."
             android:id="@+id/problem"
-            android:layout_weight="3"
-            android:text="Im having Fever from Last Night with kapil"
             android:textColor="#fff"
             android:textSize="16sp"
             android:padding="10dp"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>

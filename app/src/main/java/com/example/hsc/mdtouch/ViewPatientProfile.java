@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.GpsSatellite;
@@ -77,7 +78,13 @@ public class ViewPatientProfile extends AppCompatActivity implements LocationLis
         Listener(ref, "Occupation", R.id.profession);
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        assert toolbar != null;
+        toolbar.setTitleTextColor(Color.WHITE);
+
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle("Profile");
+        }
 
         assert viewPager != null;
         viewPager.setAdapter(adapter);

@@ -1,14 +1,15 @@
 package com.example.hsc.mdtouch;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -28,20 +29,44 @@ public class MainActivity extends AppCompatActivity {
 
     private static String URL = "https://mdtouch.herokuapp.com/MDTouch/api/";
 
-
-    public static final String PREF = "first_time";
-    boolean isFirstTime;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        isFirstTime = Boolean.valueOf(Utils.readSharedSetting(MainActivity.this,PREF,"true"));
-        Intent intro = new Intent(MainActivity.this,PagerActivity.class);
-        intro.putExtra(PREF,isFirstTime);
+        SessionManager session = new SessionManager(getApplicationContext());
+        String sess = session.getType();
 
-        if(isFirstTime){
-            startActivity(intro);
+
+        if(sess != null && sess.equals("P")){
+
+            String status = session.getStatus();
+
+            if(status.equals("true")){
+
+                Intent i = new Intent(MainActivity.this,PatientProfile.class);
+                i.putExtra("name",session.getName());
+                i.putExtra("number",session.getNumber());
+                i.putExtra("username",session.getUsername());
+                i.putExtra("data",session.getData());
+                i.putExtra("id",session.getUserId());
+                startActivity(i);
+                finish();
+
+            }
+
+        }else if(sess != null && sess.equals("D")){
+
+            String status = session.getStatus();
+
+            if(status.equals("true")){
+
+                Intent i = new Intent(MainActivity.this,DoctorProfile.class);
+                i.putExtra("id",session.getUserId());
+                startActivity(i);
+                finish();
+
+            }
+
         }
 
         setContentView(R.layout.activity_main);
@@ -138,6 +163,13 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    public void Register(View v){
+
+        Intent i = new Intent("android.intent.action.VIEW", Uri.parse("https://mdtouch.herokuapp.com/register/"));
+        startActivity(i);
+
+    }
+
     public void ForgetPassword(View view) {
 
         Intent i = new Intent("android.intent.action.VIEW", Uri.parse("https://mdtouch.herokuapp.com/password/"));
@@ -157,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
             if(c.equals("p"))
                 url+="patient/?username="+username+"&password="+password;
             else
-                url+="login/";
+                url+="login/?username="+username+"&password="+password;
         }
 
         ProgressDialog dialog;
@@ -225,6 +257,9 @@ public class MainActivity extends AppCompatActivity {
                     ref = database.getReference().child("patients").child(s1);
                     ref.child("password").setValue(s2);
 
+                    SessionManager session = new SessionManager(getApplicationContext());
+                    session.createSession(fn+" "+ln,username,no,str,s3,"P","true");
+
                     i = new Intent(MainActivity.this,PatientProfile.class);
                     i.putExtra("name",fn+" "+ln);
                     i.putExtra("number",no);
@@ -236,7 +271,11 @@ public class MainActivity extends AppCompatActivity {
                     ref = database.getReference().child("doctors");
                     ref.child(s1).setValue(s2);
 
+                    SessionManager session = new SessionManager(getApplicationContext());
+                    session.createSession("", "", "", "", s3, "D","true");
+
                     i = new Intent(MainActivity.this,DoctorProfile.class);
+                    i.putExtra("id",s3);
                 }
                 startActivity(i);
 

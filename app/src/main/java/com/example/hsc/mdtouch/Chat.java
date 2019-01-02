@@ -1,8 +1,10 @@
 package com.example.hsc.mdtouch;
 
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
@@ -11,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
@@ -31,23 +34,39 @@ public class Chat extends AppCompatActivity {
     private MessageAdapter messageAdapter;
     private EditText editText;
 
-    private DatabaseReference messagesDatabaseReference;
+    private DatabaseReference messagesDatabaseReference,ref1,ref2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
+        final String receiver = getIntent().getExtras().getString("receiver");
+        final String sender = getIntent().getExtras().getString("sender");
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.chat_toolbar);
+        setSupportActionBar(toolbar);
+        assert toolbar != null;
+        toolbar.setTitleTextColor(Color.WHITE);
+
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle(receiver);
+        }
+
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         messagesDatabaseReference = firebaseDatabase.getReference().child("messages");
 
+        ref1 = messagesDatabaseReference.child(sender+"_"+receiver);
+        ref2 = messagesDatabaseReference.child(receiver+"_"+sender);
+
         ListView listView = (ListView) findViewById(R.id.listview);
         editText = (EditText) findViewById(R.id.edittext);
-        ImageButton sendButton = (ImageButton) findViewById(R.id.sendbutton);
+        ImageView sendButton = (ImageView) findViewById(R.id.sendbutton);
         progressBar = (ProgressBar) findViewById(R.id.progressbar);
 
         List<Message> friendlyMessages = new ArrayList<>();
-        messageAdapter = new MessageAdapter(this, R.layout.other_message, friendlyMessages);
+        messageAdapter = new MessageAdapter(this, R.layout.my_message, friendlyMessages,1,receiver);
         assert listView != null;
         listView.setAdapter(messageAdapter);
 
@@ -58,10 +77,12 @@ public class Chat extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Message message = new Message(editText.getText().toString(), "virat");
+                Message message = new Message(editText.getText().toString());
 
-                if (editText.getText().length() != 0)
-                    messagesDatabaseReference.push().setValue(message);
+                if (editText.getText().length() != 0) {
+                    ref1.push().setValue(message);
+                    ref2.push().setValue(message);
+                }
 
                 editText.setText("");
             }
@@ -98,7 +119,7 @@ public class Chat extends AppCompatActivity {
             }
         };
 
-        messagesDatabaseReference.addChildEventListener(childEventListener);
+        ref1.addChildEventListener(childEventListener);
 
     }
 
@@ -109,6 +130,13 @@ public class Chat extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch(item.getItemId()){
+            case android.R.id.home:
+                super.onBackPressed();
+                return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 

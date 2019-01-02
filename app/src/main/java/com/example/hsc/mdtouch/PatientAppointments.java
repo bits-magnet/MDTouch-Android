@@ -36,8 +36,13 @@ public class PatientAppointments extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.patient_appointments_toolbar);
         setSupportActionBar(toolbar);
+        assert toolbar != null;
+        toolbar.setTitleTextColor(Color.WHITE);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle("Appointments");
+        }
 
         ListView list = (ListView) findViewById(R.id.appointment_list);
         adapter = new AppointmentAdapter(this, new ArrayList<Appointment>());
@@ -88,7 +93,7 @@ public class PatientAppointments extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode,resultCode,data);
+        super.onActivityResult(requestCode, resultCode, data);
 
 
         if(requestCode == 1 && resultCode == RESULT_OK){
@@ -113,17 +118,19 @@ public class PatientAppointments extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private class Load extends AsyncTask<Void,Void,List<Appointment>> {
+    private class Load extends AsyncTask<Void,String,List<Appointment>> {
 
         ProgressDialog dialog;
 
         String data = "";
         String doctors = "";
+        String hospitals = "";
 
         @Override
         protected void onPreExecute() {
 
             dialog = new ProgressDialog(PatientAppointments.this);
+            dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
             dialog.setMessage("Loading ...");
             dialog.setCancelable(false);
             dialog.show();
@@ -148,9 +155,6 @@ public class PatientAppointments extends AppCompatActivity {
                     JSONObject b = a.getJSONObject(i);
 
                     String date = b.getString("appointmentdate");
-
-                    Log.i("TAG",""+date);
-
                     String doctor = b.getString("doctor");
                     String location = b.getString("location");
                     String patient = b.getString("patient");
@@ -164,37 +168,51 @@ public class PatientAppointments extends AppCompatActivity {
                     else
                         status = "Rejected";
 
-
-
                     Appointment appoint = new Appointment(patient,location,doctor,message,date,status);
                     appoints.add(appoint);
-
                 }
-
-
-            } catch (JSONException e) {
-                Log.i("TAG",""+e.getMessage());
-            }
+            } catch (JSONException ignored) {}
 
             for(int i=0;i<appoints.size();i++){
+
+                publishProgress(""+i,""+appoints.size());
 
                 String id = appoints.get(i).getDoctor();
                 doctors = helper.get("https://mdtouch.herokuapp.com/MDTouch/api/doctor/"+id);
 
-                    try {
-                        JSONObject j = new JSONObject(doctors);
-                        appoints.get(i).setDoctor(j.getString("firstName") + " " + j.getString("lastName"));
+                String hospitalId = appoints.get(i).getHospital();
+                hospitals = helper.get("https://mdtouch.herokuapp.com/MDTouch/api/hospital/"+hospitalId);
 
-                        Log.i("TAG",appoints.get(i).getDoctor());
+                try{
 
-                    } catch (JSONException ignored) {
+                    JSONObject j = new JSONObject(hospitals);
+                    appoints.get(i).setHospital(j.getString("name"));
 
-                    }
+                } catch (JSONException ignored) {
+
+                }
+
+                try {
+                    JSONObject j = new JSONObject(doctors);
+                    appoints.get(i).setDoctor(j.getString("firstName") + " " + j.getString("lastName"));
+
+                } catch (JSONException ignored) {
+
+                }
 
 
             }
 
             return appoints;
+        }
+
+        @Override
+        protected void onProgressUpdate(String... values) {
+
+            float p = 100*Float.parseFloat(values[0])/Float.parseFloat(values[1])*1.4f;
+
+            dialog.setProgress((int)p);
+
         }
 
         @Override

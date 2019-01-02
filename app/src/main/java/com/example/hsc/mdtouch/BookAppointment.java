@@ -51,9 +51,12 @@ public class BookAppointment extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.appointment_toolbar);
         setSupportActionBar(toolbar);
+        assert toolbar != null;
+        toolbar.setTitleTextColor(Color.WHITE);
 
         if(getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle("Confirm Appointment");
         }
 
         CardView myselfCard = (CardView)findViewById(R.id.card_myself);

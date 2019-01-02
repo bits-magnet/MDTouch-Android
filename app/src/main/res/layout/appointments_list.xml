@@ -55,7 +55,6 @@
             android:layout_weight="1"
             android:layout_height="match_parent"
             android:text="Pending .."
-            android:textColor="#ff9100"
             android:textSize="18sp"
             />
 

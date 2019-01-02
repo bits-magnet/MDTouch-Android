@@ -15,6 +15,13 @@ public class Appointment {
 
     }
 
+    public Appointment(String d,String h){
+
+        this.doctor = d;
+        this.hospital = h;
+
+    }
+
     public Appointment(String p,String hospital,String doctor,String problem,String date,String status){
 
         this.patient=p;

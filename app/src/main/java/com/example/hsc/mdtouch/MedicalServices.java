@@ -1,5 +1,6 @@
 package com.example.hsc.mdtouch;
 
+import android.graphics.Color;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -16,8 +17,13 @@ public class MedicalServices extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar)findViewById(R.id.medical_services_toolbar);
         setSupportActionBar(toolbar);
+        assert toolbar != null;
+        toolbar.setTitleTextColor(Color.WHITE);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle("Medical Services");
+        }
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.medical_viewpager);
         MedicalViewPagerAdapter adapter = new MedicalViewPagerAdapter(getSupportFragmentManager());
