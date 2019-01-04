@@ -101,6 +101,9 @@ public class PatientProfile extends AppCompatActivity {
     public void MyDoctors(View v){
 
         Intent i = new Intent(PatientProfile.this,MyDoctors.class);
+
+        String id = getIntent().getExtras().getString("id");
+        i.putExtra("id",id);
         i.putExtra("name",s1);
         startActivity(i);
 

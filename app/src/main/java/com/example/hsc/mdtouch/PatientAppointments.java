@@ -29,6 +29,8 @@ public class PatientAppointments extends AppCompatActivity {
     List<Appointment> appoints = new ArrayList<>();
     private AppointmentAdapter adapter;
 
+    String pId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,8 +87,8 @@ public class PatientAppointments extends AppCompatActivity {
     public void BookAppointment(View v){
 
         Intent i = new Intent(PatientAppointments.this,BookAppointment.class);
-        String s = getIntent().getExtras().getString("id");
-        i.putExtra("id", s);
+        pId = getIntent().getExtras().getString("id");
+        i.putExtra("id", pId);
         startActivityForResult(i, 1);
 
     }
@@ -99,7 +101,6 @@ public class PatientAppointments extends AppCompatActivity {
         if(requestCode == 1 && resultCode == RESULT_OK){
 
             adapter.clear();
-            new Load().execute();
 
         }
 
@@ -142,7 +143,7 @@ public class PatientAppointments extends AppCompatActivity {
 
             HttpHelper helper = new HttpHelper();
 
-            data = helper.get("https://mdtouch.herokuapp.com/MDTouch/api/appointment/");
+            data = helper.get("https://mdtouch.herokuapp.com/MDTouch/api/appointment/?patient"+pId);
 
             data = "{ \"data\" :  " + data + " }";
 

@@ -1,15 +1,17 @@
 package com.example.hsc.mdtouch;
 
-import android.graphics.Color;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -18,45 +20,47 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
-public class MyDoctors extends AppCompatActivity {
+import java.util.concurrent.ExecutionException;
 
-    List<Appointment> doctors = new ArrayList<>();
-    private DoctorAdapter adapter;
+public class MyPatients extends AppCompatActivity {
 
-    String id;
+    ArrayList<String> patients = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_doctors);
+        setContentView(R.layout.activity_my_patients);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.my_doctors_toolbar);
+        try {
+            new Load().execute().get();
+        } catch (InterruptedException | ExecutionException ignored) {
+
+        }
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.my_patients_toolbar);
         setSupportActionBar(toolbar);
         assert toolbar != null;
         toolbar.setTitleTextColor(Color.WHITE);
 
         if(getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setTitle("My Doctors");
+            getSupportActionBar().setTitle("My Patients");
         }
 
-        ListView list = (ListView) findViewById(R.id.my_doctors_list);
-        adapter = new DoctorAdapter(this, new ArrayList<Appointment>());
+        ListView list = (ListView) findViewById(R.id.my_patients_list);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(MyPatients.this,R.layout.list_item,patients);
         assert list != null;
         list.setAdapter(adapter);
 
-        new Load().execute();
-
-        TextView empty = (TextView) findViewById(R.id.empty_my_doctors);
+        TextView empty = (TextView) findViewById(R.id.empty_my_patients);
         list.setEmptyView(empty);
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Intent i = new Intent(MyDoctors.this,Chat.class);
-                i.putExtra("receiver",doctors.get(position).getDoctor());
+                Intent i = new Intent(MyPatients.this,Chat.class);
+                i.putExtra("receiver",patients.get(position));
 
                 String name = getIntent().getExtras().getString("name");
                 i.putExtra("sender",name);
@@ -65,7 +69,6 @@ public class MyDoctors extends AppCompatActivity {
 
             }
         });
-
     }
 
     @Override
@@ -80,16 +83,15 @@ public class MyDoctors extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public class Load extends AsyncTask<Void,String,List<Appointment>>{
+    public class Load extends AsyncTask<Void,String,Void> {
 
         ProgressDialog dialog;
-        String data = "",doctor = "", hospital = "";
-
+        String data = "",patient = "";
 
         @Override
         protected void onPreExecute() {
 
-            dialog = new ProgressDialog(MyDoctors.this);
+            dialog = new ProgressDialog(MyPatients.this);
             dialog.setMessage("Loading ...");
             dialog.setCancelable(false);
             dialog.show();
@@ -97,13 +99,13 @@ public class MyDoctors extends AppCompatActivity {
         }
 
         @Override
-        protected List<Appointment> doInBackground(Void... params) {
+        protected Void doInBackground(Void... params) {
 
             HttpHelper helper = new HttpHelper();
 
-            id = getIntent().getExtras().getString("id");
+            String id = getIntent().getExtras().getString("id");
 
-            data = helper.get("https://mdtouch.herokuapp.com/MDTouch/api/appointment/?patient="+id+"&status=1");
+            data = helper.get("https://mdtouch.herokuapp.com/MDTouch/api/appointment/?doctor="+id+"&status=1");
 
             data = "{ \"data\" :  " + data + " }";
 
@@ -116,54 +118,40 @@ public class MyDoctors extends AppCompatActivity {
 
                     JSONObject b = a.getJSONObject(i);
 
-                    String doctor = b.getString("doctor");
-                    String location = b.getString("location");
+                    patient = b.getString("patient");
 
-                    Appointment mDoctor = new Appointment(doctor,location);
-                    doctors.add(mDoctor);
+                    patients.add(patient);
 
                 }
 
             } catch (JSONException ignored) {}
 
-            for(int i=0;i<doctors.size();i++){
+            for(int i=0;i<patients.size();i++){
 
-                String id = doctors.get(i).getDoctor();
-                doctor = helper.get("https://mdtouch.herokuapp.com/MDTouch/api/doctor/"+id);
+                patient = helper.get("https://mdtouch.herokuapp.com/MDTouch/api/patient/"+patients.get(i));
 
-                String hospitalId = doctors.get(i).getHospital();
-                hospital = helper.get("https://mdtouch.herokuapp.com/MDTouch/api/hospital/"+hospitalId);
-
-                try{
-
-                    JSONObject j = new JSONObject(hospital);
-                    doctors.get(i).setHospital(j.getString("name"));
-
-                } catch (JSONException ignored) {}
+                Log.i("TAG", "" + patient);
 
                 try {
-                    JSONObject j = new JSONObject(doctor);
-                    doctors.get(i).setDoctor(j.getString("firstName") + " " + j.getString("lastName"));
+                    JSONObject j = new JSONObject(patient);
+                    patients.set(i, j.getString("firstName") + " " + j.getString("lastName"));
+                    Log.i("TAG", "im done");
 
                 } catch (JSONException ignored) {}
             }
 
-            return doctors;
+            return null;
 
         }
 
-
         @Override
-        protected void onPostExecute(List<Appointment> doctors) {
+        protected void onPostExecute(Void aVoid) {
 
             if(dialog.isShowing())
                 dialog.dismiss();
-
-            adapter.clear();
-            if(doctors!=null && !doctors.isEmpty()){
-                adapter.addAll(doctors);
-            }
         }
+
+
     }
 
 }

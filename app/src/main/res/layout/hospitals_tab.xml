@@ -1,19 +1,28 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.example.hsc.mdtouch.CompleteProfile"
-    android:background="#000"
-    android:orientation="vertical">
+    tools:context="com.example.hsc.mdtouch.CompleteProfile">
 
-    <TextView
+    <ListView
+        android:divider="#000"
+        android:dividerHeight="1.0sp"
+        android:layout_margin="10dp"
+        android:id="@+id/hospitals_services_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textColor="#fff"
-        android:textSize="20sp"
-        android:text="Hospitals"
+        >
+
+    </ListView>
+
+    <TextView
+        android:id="@+id/empty_hospitals"
         android:gravity="center"
+        android:textSize="18sp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="No Hospitals."
+        android:textColor="#000"
         />
 
-</LinearLayout>
+</RelativeLayout>

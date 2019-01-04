@@ -15,6 +15,7 @@ public class MedicalServices extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medical_services);
 
+
         Toolbar toolbar = (Toolbar)findViewById(R.id.medical_services_toolbar);
         setSupportActionBar(toolbar);
         assert toolbar != null;
@@ -24,6 +25,7 @@ public class MedicalServices extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setTitle("Medical Services");
         }
+
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.medical_viewpager);
         MedicalViewPagerAdapter adapter = new MedicalViewPagerAdapter(getSupportFragmentManager());
@@ -46,4 +48,6 @@ public class MedicalServices extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }

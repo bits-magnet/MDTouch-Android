@@ -167,7 +167,7 @@
                     android:background="#fff"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="your Patients"
+                    android:text="My Patients"
                     android:textColor="#000"
                     android:textSize="20sp"
                     android:textStyle="bold"

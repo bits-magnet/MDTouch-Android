@@ -13,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,9 +22,9 @@ public class DoctorProfile extends AppCompatActivity {
 
     String id,data = "";
 
-    String q,s,h,name;
+    String q,s,h,name,city;
     TextView qualification,specialization,hospital,mName;
-    String Qid,Sid,Hid;
+    String Qid="",Sid="",Hid="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +54,7 @@ public class DoctorProfile extends AppCompatActivity {
 
     public class Load extends AsyncTask<Void,Void,Void> {
 
-        String str1,str2,str3,city;
+        String str1,str2,str3;
         JSONObject j1,j2,j3;
 
         ProgressDialog dialog;
@@ -80,19 +81,16 @@ public class DoctorProfile extends AppCompatActivity {
             try {
                 JSONObject json = new JSONObject(data);
 
+                id = json.getString("id");
                 Sid = json.getString("specialization");
                 Hid = json.getString("workplace");
                 Qid = json.getString("qualification");
 
-                if(Sid == null || Qid == null)
-                    return null;
 
                 String fn,ln;
                 fn = json.getString("firstName");
                 ln = json.getString("lastName");
                 name = fn+" "+ln;
-
-                Log.i("TAG",Sid+Qid+Hid);
 
             } catch (JSONException ignored) {
 
@@ -134,13 +132,28 @@ public class DoctorProfile extends AppCompatActivity {
 
     public void Appointments(View v){
 
+        Intent i = new Intent(DoctorProfile.this,DoctorAppointments.class);
+        i.putExtra("id",id);
+        i.putExtra("hospital",h+", "+city);
+        startActivity(i);
     }
 
     public void YourPatients(View v){
 
+        Intent i = new Intent(DoctorProfile.this,MyPatients.class);
+        i.putExtra("name",name);
+        i.putExtra("id",id);
+        startActivity(i);
+
     }
 
     public void ChatDoctors(View v){
+
+        Intent i = new Intent(DoctorProfile.this,ChatDoctors.class);
+        i.putExtra("id",id);
+        i.putExtra("Hid",Hid);
+        i.putExtra("name",name);
+        startActivity(i);
 
     }
 

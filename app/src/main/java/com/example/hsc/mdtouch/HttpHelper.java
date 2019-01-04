@@ -1,11 +1,15 @@
 package com.example.hsc.mdtouch;
 
+import android.util.Log;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 public class HttpHelper {
@@ -32,6 +36,30 @@ public class HttpHelper {
         }
 
         return response;
+
+    }
+
+    public void put(String reqUrl,int value){
+
+        try{
+
+            URL url = new URL(reqUrl);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setDoOutput(true);
+            conn.setRequestMethod("PUT");
+            conn.setRequestProperty("Content-Type","application/json");
+
+            OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream());
+            out.write("{ \"status\" : "+value+" }");
+            out.flush();
+            out.close();
+
+            Log.i("TAG", this.get(reqUrl));
+            Log.i("TAG",""+conn.getResponseCode());
+
+        } catch (IOException ignored) {
+
+        }
 
     }
 

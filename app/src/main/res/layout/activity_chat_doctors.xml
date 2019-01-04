@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.hsc.mdtouch.MyDoctors">
+    tools:context="com.example.hsc.mdtouch.ChatDoctors">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/my_doctors_toolbar"
+        android:id="@+id/chat_doctors_toolbar"
         android:layout_width="match_parent"
         android:background="@color/colorPrimaryDark"
         android:layout_height="wrap_content">
@@ -17,23 +17,22 @@
         android:divider="#000"
         android:dividerHeight="1.0sp"
         android:layout_margin="10dp"
-        android:id="@+id/my_doctors_list"
+        android:id="@+id/chat_doctors_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/my_doctors_toolbar"
+        android:layout_below="@+id/chat_doctors_toolbar"
         >
-
 
     </ListView>
 
     <TextView
-        android:layout_below="@+id/my_doctors_toolbar"
-        android:id="@+id/empty_my_doctors"
+        android:layout_below="@+id/chat_doctors_toolbar"
+        android:id="@+id/empty_chat_doctors_patients"
         android:gravity="center"
         android:textSize="18sp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="No Doctors Appointed."
+        android:text="No Doctors."
         android:textColor="#000"
         />
 

@@ -2,6 +2,7 @@ package com.example.hsc.mdtouch;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +32,18 @@ public class AppointmentAdapter extends ArrayAdapter<Appointment> {
 
         TextView mDoctor = (TextView) listItemView.findViewById(R.id.with);
         String doctor = appoint.getDoctor();
-        mDoctor.setText("Appointment with " + doctor);
+
+        if(!doctor.equals(""))
+            mDoctor.setText("Appointment with " + doctor);
+        else{
+
+            String patient = appoint.getPatient();
+
+            Log.i("TAG",""+patient);
+
+            mDoctor.setText("Appointment with " + patient);
+
+        }
 
         TextView mDate = (TextView) listItemView.findViewById(R.id.date);
         String date = appoint.getDate();

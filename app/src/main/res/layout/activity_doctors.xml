@@ -15,6 +15,9 @@
         />
 
     <ListView
+        android:divider="#000"
+        android:dividerHeight="1.0sp"
+        android:layout_margin="10dp"
         android:layout_below="@id/doctors_toolbar"
         android:id="@+id/doctors_list"
         android:layout_width="match_parent"

@@ -10,6 +10,7 @@ import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -266,6 +267,7 @@ public class MainActivity extends AppCompatActivity {
                     i.putExtra("username",username);
                     i.putExtra("data",str);
                     i.putExtra("id",s3);
+
                 }else{
 
                     ref = database.getReference().child("doctors");
