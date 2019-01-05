@@ -18,7 +18,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.concurrent.ExecutionException;
+
 public class PersonalFragment extends Fragment {
+
+    String s,ec;
+    TextView emergency;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,7 +41,7 @@ public class PersonalFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
 
-        String s = getActivity().getIntent().getExtras().getString("data");
+        s = getActivity().getIntent().getExtras().getString("data");
 
         try {
             JSONObject obj = new JSONObject(s);
@@ -50,7 +55,11 @@ public class PersonalFragment extends Fragment {
             String ht = obj.getString("height");
             String wt = obj.getString("weight");
             String gn = obj.getString("gender");
-
+            String dob = obj.getString("dateofbirth");
+            String bg = obj.getString("bloodgroup");
+            String ms = obj.getString("maritalstatus");
+            ec = obj.getString("contact");
+            String an = obj.getString("aadharnumber");
 
             TextView name = (TextView) view.findViewById(R.id.name);
             TextView number = (TextView) view.findViewById(R.id.number);
@@ -60,6 +69,11 @@ public class PersonalFragment extends Fragment {
             TextView height = (TextView) view.findViewById(R.id.height);
             TextView weight = (TextView) view.findViewById(R.id.weight);
             TextView gender = (TextView) view.findViewById(R.id.gender);
+            TextView dateob = (TextView) view.findViewById(R.id.dob);
+            TextView blood = (TextView) view.findViewById(R.id.blood);
+            TextView status = (TextView) view.findViewById(R.id.status);
+            emergency = (TextView) view.findViewById(R.id.emergency);
+            TextView aadhar = (TextView) view.findViewById(R.id.aadhar);
 
             name.setText(fn+" "+ln);
             number.setText(no);
@@ -69,13 +83,49 @@ public class PersonalFragment extends Fragment {
             height.setText(ht);
             weight.setText(wt+" Kg");
             gender.setText(gn);
+            dateob.setText(dob.substring(0,10));
+            blood.setText(bg);
+            status.setText(ms);
+            aadhar.setText(an);
 
-        } catch (JSONException ignored) {
+            new Load().execute().get();
+
+        } catch (JSONException | ExecutionException | InterruptedException ignored) {
 
         }
 
         super.onViewCreated(view, savedInstanceState);
 
+    }
+
+    public class Load extends AsyncTask<Void,Void,Void>{
+
+        String e1;
+
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            HttpHelper helper = new HttpHelper();
+
+            s = helper.get("https://mdtouch.herokuapp.com/MDTouch/api/emergencycontact/"+ec);
+
+            Log.i("TAG",""+s);
+            Log.i("TAG",""+ec);
+
+            try{
+                JSONObject json = new JSONObject(s);
+                e1 = json.getString("number");
+            } catch (JSONException ignored) {
+
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            emergency.setText(e1);
+        }
     }
 
 }

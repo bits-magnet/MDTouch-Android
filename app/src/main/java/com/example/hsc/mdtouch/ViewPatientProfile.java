@@ -18,6 +18,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -45,9 +47,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public class ViewPatientProfile extends AppCompatActivity implements LocationListener {
+public class ViewPatientProfile extends AppCompatActivity {
 
-    LocationManager manager;
     Toolbar toolbar;
     ViewPager viewPager;
     TabLayout tabLayout;
@@ -71,12 +72,6 @@ public class ViewPatientProfile extends AppCompatActivity implements LocationLis
 
         ref = database.getReference().child("patients").child(username);
 
-        Listener(ref, "Smoking Habits",R.id.smoking_habits);
-        Listener(ref, "Alcohol Consumption", R.id.alcohol);
-        Listener(ref, "Activity Level", R.id.activity);
-        Listener(ref, "Food preference", R.id.food);
-        Listener(ref, "Occupation", R.id.profession);
-
         setSupportActionBar(toolbar);
         assert toolbar != null;
         toolbar.setTitleTextColor(Color.WHITE);
@@ -92,20 +87,8 @@ public class ViewPatientProfile extends AppCompatActivity implements LocationLis
         assert tabLayout != null;
         tabLayout.setupWithViewPager(viewPager);
 
-        manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        try {
-            manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5, this);
-        }catch(SecurityException ignored){
-
-        }
-
     }
 
-    public void Listener(DatabaseReference ref, String name , final int id){
-
-
-
-    }
 
     private void Initialize() {
 
@@ -117,8 +100,6 @@ public class ViewPatientProfile extends AppCompatActivity implements LocationLis
     }
 
     public void CommonDialog(final String name, final String array[], final int id){
-
-        username = getIntent().getExtras().getString("username");
 
         spin = new Spinner(this);
         dialog = new AlertDialog.Builder(this);
@@ -153,6 +134,8 @@ public class ViewPatientProfile extends AppCompatActivity implements LocationLis
         dialog.show();
 
     }
+
+
 
     public void SmokingHabits(View v){
 
@@ -190,32 +173,114 @@ public class ViewPatientProfile extends AppCompatActivity implements LocationLis
         String profession[] = {"IT professional","Medical professional","Banking professional","Education","Student",
                 "Home-maker","Other"};
 
-        CommonDialog("Occupation",profession,R.id.profession);
+        CommonDialog("Occupation", profession, R.id.profession);
 
     }
 
     public void Allergies(View v){
 
+        String allergies[] = {"Lactose","Soy","Seafood","Nuts","Eggs","Fish","Mushroom","Gluten","Penicillin","Sulpha Drugs",
+                                "Local Anthesia","Aspirin","Insulin","X-Ray Dye","Pollen","Mold","Pets","Other"};
+
+        CommonDialog2("Allergies", allergies, R.id.allergies);
+
     }
 
     public void CurrentMedications(View v){
+
+        String cMedication[] = {"Ulgel a susp 200ml","Calapure a lotion 100ml","Nilac a gel 20gm","Trump a syrup 100ml",
+                "Cligel a gel 15gm","Calak a lotion 50ml","Cosome a syrup 100ml","Bricrax a expt 100ml","Femicinol a gel 10gm","Other"};
+
+        CommonDialog2("Current Medications",cMedication,R.id.current_medication);
 
     }
 
     public void PastMedications(View v){
 
+        String pMedication[] = {"Ulgel a susp 200ml","Calapure a lotion 100ml","Nilac a gel 20gm","Trump a syrup 100ml",
+                "Cligel a gel 15gm","Calak a lotion 50ml","Cosome a syrup 100ml","Bricrax a expt 100ml","Femicinol a gel 10gm","Other"};
+
+        CommonDialog2("Past Medications",pMedication,R.id.past_medication);
+
     }
 
     public void ChronicDisease(View v){
+
+        String disease[] = {"Diabetes","Hypertension","PCOS","Hypothyroidism","COPD","Asthma","Heart Disease","Arthritis",
+                                "Fertility Issues","Mental Issues","Mental Depression","Other"};
+
+        CommonDialog2("Chronic Disease",disease,R.id.disease);
 
     }
 
     public void Injuries(View v){
 
+        String injuries[] = {"Burns","Spinal Cord Injury","Skull Fracture","Spinal Fracture","Rib Fracture","Jaw Fracture","Concussion",
+                                        "Amputation","Traumatic Brain Injury","Facial Trauma","Accoustic Trauma","Other"};
+
+        CommonDialog2("Injuries",injuries,R.id.injuries);
     }
 
     public void Surgeries(View v){
 
+        String surgeries[] = {"Heart","Liver","Kidney","Lungs","Brain","Facial","Cosmetic","Other"};
+
+        CommonDialog2("Surgeries",surgeries,R.id.surgeries);
+    }
+
+    public void CommonDialog2(final String name, final String values[],final int id){
+
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle(name);
+
+        final boolean[] selectedItems = new boolean[values.length];
+
+        dialog.setMultiChoiceItems(values, selectedItems, new DialogInterface.OnMultiChoiceClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                selectedItems[which] = isChecked;
+            }
+        });
+
+        dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            String s = "";
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                int c = 0;
+
+                for (boolean selectedItem : selectedItems)
+                    if (selectedItem)
+                        c++;
+
+                for (int i = 0; i < selectedItems.length; i++) {
+                    if (selectedItems[i] && i != (c-1))
+                        s = s + values[i] + ", ";
+                    else if (selectedItems[i] && (i == c-1))
+                        s = s + values[i] + ".";
+                }
+
+                ref.child(name).setValue(s);
+
+                TextView text = (TextView) findViewById(id);
+                assert text != null;
+                if(!s.equals(""))
+                    text.setText(s);
+                else
+                    text.setText("Add Details");
+            }
+        });
+
+        dialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.setCancelable(false);
+        dialog.show();
     }
 
     @Override
@@ -230,47 +295,8 @@ public class ViewPatientProfile extends AppCompatActivity implements LocationLis
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onLocationChanged(Location location) {
 
-        TextView l = (TextView) findViewById(R.id.location);
 
-        Geocoder geo = new Geocoder(this,Locale.getDefault());
-        List<Address> addresses;
-
-        try {
-            addresses = geo.getFromLocation(location.getLatitude(),location.getLongitude(),1);
-
-            String address = addresses.get(0).getAddressLine(0);
-            String city = addresses.get(0).getLocality();
-
-            Log.i("TAG",""+address+" "+city);
-
-            assert l != null;
-            l.setText(address+" "+city);
-
-        } catch (IOException e) {
-            Log.i("TAG",""+e.getMessage());
-        }
-
-    }
-
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-
-    }
-
-    @Override
-    public void onProviderEnabled(String provider) {
-
-    }
-
-    @Override
-    public void onProviderDisabled(String provider) {
-
-        Toast.makeText(this,"Please Enable GPS and Internet",Toast.LENGTH_SHORT).show();
-
-    }
 }
 
 

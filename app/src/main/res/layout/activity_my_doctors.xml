@@ -14,8 +14,8 @@
     </android.support.v7.widget.Toolbar>
 
     <ListView
-        android:divider="#000"
-        android:dividerHeight="1.0sp"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="10.0sp"
         android:layout_margin="10dp"
         android:id="@+id/my_doctors_list"
         android:layout_width="match_parent"
