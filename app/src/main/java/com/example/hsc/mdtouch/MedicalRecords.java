@@ -1,6 +1,8 @@
 package com.example.hsc.mdtouch;
 
 import android.graphics.Color;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -23,6 +25,15 @@ public class MedicalRecords extends AppCompatActivity {
             getSupportActionBar().setTitle("Medical Records");
         }
 
+        MedicalRecordsAdapter adapter = new MedicalRecordsAdapter(getSupportFragmentManager());
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager2);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tablayout2);
+
+        assert viewPager != null;
+        viewPager.setAdapter(adapter);
+
+        assert tabLayout != null;
+        tabLayout.setupWithViewPager(viewPager);
     }
 
     @Override

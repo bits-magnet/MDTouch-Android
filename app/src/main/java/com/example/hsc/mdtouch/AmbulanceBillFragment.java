@@ -21,9 +21,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-public class HospitalsFragment extends Fragment {
+public class AmbulanceBillFragment extends Fragment {
 
-    List<String> hospitals = new ArrayList<>();
+    List<String> bills = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,18 +41,17 @@ public class HospitalsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.hospitals_tab, container,false);
+        View view = inflater.inflate(R.layout.ambulance_bill_tab, container,false);
 
-        ListView l1 = (ListView) view.findViewById(R.id.hospitals_services_list);
+        ListView l1 = (ListView) view.findViewById(R.id.ambulance_bill_list);
 
-        ArrayAdapter<String> a1 = new ArrayAdapter<>(getContext(),R.layout.list_item,hospitals);
+        ArrayAdapter<String> a1 = new ArrayAdapter<>(getContext(),R.layout.list_item,bills);
 
-        TextView e1 = (TextView) view.findViewById(R.id.empty_hospitals);
+        TextView e1 = (TextView) view.findViewById(R.id.empty_ambulance_bill);
 
         if (l1 != null) {
             l1.setAdapter(a1);
             l1.setEmptyView(e1);
-            Log.i("TAG", "" + l1);
         }
 
         return view;
@@ -82,7 +81,9 @@ public class HospitalsFragment extends Fragment {
 
             HttpHelper helper = new HttpHelper();
 
-            s1 = helper.get("https://mdtouch.herokuapp.com/MDTouch/api/hospital/");
+            String id = getActivity().getIntent().getExtras().getString("id");
+
+            s1 = helper.get("https://mdtouch.herokuapp.com/MDTouch/api/ambulancebilling/?patientid"+id);
 
             s1 = "{ \"data\" :  " + s1 + " }";
 
@@ -95,7 +96,7 @@ public class HospitalsFragment extends Fragment {
                 for(int i=0;i<a1.length();i++){
 
                     JSONObject b = a1.getJSONObject(i);
-                    hospitals.add(b.getString("name"));
+                    bills.add(b.getString("destination"));
 
                 }
 
@@ -109,4 +110,5 @@ public class HospitalsFragment extends Fragment {
             dialog.dismiss();
         }
     }
+
 }

@@ -6,7 +6,7 @@
         android:divider="#000"
         android:dividerHeight="1.0sp"
         android:layout_margin="10dp"
-        android:id="@+id/hospitals_services_list"
+        android:id="@+id/blood_bank_bill_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
@@ -14,12 +14,12 @@
     </ListView>
 
     <TextView
-        android:id="@+id/empty_hospitals"
+        android:id="@+id/empty_blood_bank_bill"
         android:gravity="center"
         android:textSize="18sp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="No Hospitals."
+        android:text="No Bills."
         android:textColor="#000"
         />
 
