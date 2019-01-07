@@ -6,7 +6,12 @@ public class Message {
     private String sender;
     private String createdAt;
 
-    public Message(){
+    public Message(){}
+
+    public Message(String text,String sender){
+
+        this.text=text;
+        this.sender=sender;
 
     }
 

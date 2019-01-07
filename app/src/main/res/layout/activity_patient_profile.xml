@@ -32,14 +32,14 @@
             <ImageView
                 android:layout_marginTop="4dp"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="100dp"
                 android:src="@drawable/patient"
                 />
 
             <TextView
                 android:textAllCaps="true"
                 android:id="@+id/name"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="12dp"
                 android:textSize="20sp"
                 android:gravity="center"
                 android:layout_width="match_parent"
@@ -57,32 +57,12 @@
                 android:textColor="#fff"
                 />
 
-            <ProgressBar
-                android:progressDrawable="@color/green"
-                android:background="#fff"
-                android:layout_marginStart="40dp"
-                android:layout_marginEnd="40dp"
-                android:layout_marginTop="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="16dp"
-                style="?android:attr/progressBarStyleHorizontal"
-                />
-
-            <TextView
-                android:layout_marginTop="6dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="7 %"
-                android:textColor="#fff"
-                android:gravity="center"
-                />
-
             <TextView
                 android:id="@+id/viewprofile"
                 android:background="@drawable/complete_profile"
                 android:layout_gravity="center"
                 android:padding="12dp"
-                android:layout_marginTop="14dp"
+                android:layout_marginTop="20dp"
                 android:textStyle="bold"
                 android:textColor="#fff"
                 android:layout_width="wrap_content"
@@ -96,29 +76,6 @@
 
 
     </android.support.v7.widget.CardView>
-
-    <android.support.v7.widget.CardView
-        card_view:cardCornerRadius="5dp"
-        card_view:cardBackgroundColor="#ece7e7"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="4dp">
-
-            <TextView
-                android:layout_marginBottom="8dp"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="@color/colorPrimaryDark"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="16dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="How we keep your data secure?"
-                />
-
-
-    </android.support.v7.widget.CardView>
-
 
     <android.support.v7.widget.CardView
         card_view:cardCornerRadius="5dp"
@@ -156,6 +113,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Appointments"
+                    android:textColor="#000"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:padding="18dp"
+                    />
+
+                <TextView
+                    android:layout_marginTop="1dp"
+                    android:background="#fff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Bed Request"
                     android:textColor="#000"
                     android:textSize="20sp"
                     android:textStyle="bold"

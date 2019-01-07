@@ -7,6 +7,16 @@
 
     <string name="action_settings">Settings</string>
 
+    <array name = "report_items">
+
+        <item>Booking Appointments</item>
+        <item>My Account</item>
+        <item>Doctor</item>
+        <item>Feedbacks</item>
+        <item>Other Issues</item>
+
+    </array>
+
     <array name="cities">
 
         <item>Delhi</item>

@@ -12,15 +12,9 @@ import java.util.List;
 
 public class MessageAdapter extends ArrayAdapter<Message> {
 
-
-    int sender ;
-    String receiver ;
-
-    public MessageAdapter(Context context, int resource, List<Message> objects,int s, String r) {
+    public MessageAdapter(Context context, int resource, List<Message> objects) {
         super(context, resource, objects);
 
-        sender = s;
-        receiver = r;
     }
 
     @Override
@@ -28,8 +22,8 @@ public class MessageAdapter extends ArrayAdapter<Message> {
 
         Message m = getItem(position);
 
-        if (convertView == null) {
-            if(sender == 1) {
+        if (convertView == null && m != null) {
+            if( m.getSender().equals("p")) {
                 convertView = ((Activity) getContext()).getLayoutInflater().inflate(R.layout.my_message, parent, false);
 
                 TextView message = (TextView) convertView.findViewById(R.id.message);
@@ -42,7 +36,7 @@ public class MessageAdapter extends ArrayAdapter<Message> {
                 message.setText(m.getText());
 
                 TextView name = (TextView) convertView.findViewById(R.id.name);
-                name.setText(receiver);
+                name.setText("Other");
             }
         }
 

@@ -9,5 +9,14 @@
 
     </item>
 
+    <item
+        android:icon="@mipmap/report"
+        android:id="@+id/report"
+        android:title="Report"
+        android:showAsAction="always"
+        >
+
+    </item>
+
 
 </menu>

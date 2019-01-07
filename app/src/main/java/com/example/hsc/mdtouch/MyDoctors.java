@@ -58,6 +58,8 @@ public class MyDoctors extends AppCompatActivity {
                 Intent i = new Intent(MyDoctors.this,Chat.class);
                 i.putExtra("receiver",doctors.get(position).getDoctor());
 
+                i.putExtra("user","p");
+
                 String name = getIntent().getExtras().getString("name");
                 i.putExtra("sender",name);
 

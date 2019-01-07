@@ -31,6 +31,16 @@
 
     </ListView>
 
+    <TextView
+        android:id="@+id/empty_chat"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:textColor="#fff"
+        android:text="No Messages"
+        />
+
     <LinearLayout
         android:id="@+id/linearlayout"
         android:layout_alignParentBottom="true"

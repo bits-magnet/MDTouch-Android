@@ -16,6 +16,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -57,6 +58,7 @@ public class Chat extends AppCompatActivity {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         messagesDatabaseReference = firebaseDatabase.getReference().child("messages");
 
+
         ref1 = messagesDatabaseReference.child(sender+"_"+receiver);
         ref2 = messagesDatabaseReference.child(receiver+"_"+sender);
 
@@ -66,9 +68,10 @@ public class Chat extends AppCompatActivity {
         progressBar = (ProgressBar) findViewById(R.id.progressbar);
 
         List<Message> friendlyMessages = new ArrayList<>();
-        messageAdapter = new MessageAdapter(this, R.layout.my_message, friendlyMessages,1,receiver);
+        messageAdapter = new MessageAdapter(this, R.layout.my_message, friendlyMessages);
         assert listView != null;
         listView.setAdapter(messageAdapter);
+        listView.setEmptyView(findViewById(R.id.empty_chat));
 
         editText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(DEFAULT_MSG_LENGTH_LIMIT)});
 
@@ -77,7 +80,9 @@ public class Chat extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Message message = new Message(editText.getText().toString());
+                String user = getIntent().getExtras().getString("user");
+
+                Message message = new Message(editText.getText().toString(),user);
 
                 if (editText.getText().length() != 0) {
                     ref1.push().setValue(message);

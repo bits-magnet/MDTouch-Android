@@ -1,0 +1,70 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_width="match_parent">
+
+    <TextView
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Issue With"
+        android:padding="16dp"
+        android:textColor="#000"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:id="@+id/textView" />
+
+    <Spinner
+        android:padding="16dp"
+        android:entries="@array/report_items"
+        android:id="@+id/spin_reports"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    </Spinner>
+
+    <android.support.design.widget.TextInputLayout
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Title"
+        android:textColorHint="#000"
+        >
+
+        <EditText
+            android:id="@+id/username"
+            android:maxLines="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#000"
+            android:textColorHint="#000"
+            android:textSize="16sp"
+            android:backgroundTint="#000"
+            />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:hint="Description"
+        android:textColorHint="#000"
+        >
+
+        <EditText
+            android:id="@+id/description"
+            android:maxLines="5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#000"
+            android:textColorHint="#000"
+            android:textSize="16sp"
+            android:backgroundTint="#000"
+            />
+
+    </android.support.design.widget.TextInputLayout>
+
+</LinearLayout>
