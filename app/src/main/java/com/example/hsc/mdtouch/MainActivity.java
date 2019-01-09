@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
         SessionManager session = new SessionManager(getApplicationContext());
         String sess = session.getType();
 
-
         if(sess != null && sess.equals("P")){
 
             String status = session.getStatus();
@@ -256,6 +255,7 @@ public class MainActivity extends AppCompatActivity {
                 if(url.contains("patient")){
 
                     ref = database.getReference().child("patients").child(s1);
+
                     ref.child("password").setValue(s2);
 
                     SessionManager session = new SessionManager(getApplicationContext());

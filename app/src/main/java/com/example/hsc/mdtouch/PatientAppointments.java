@@ -1,7 +1,9 @@
 package com.example.hsc.mdtouch;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -9,6 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -74,15 +78,23 @@ public class PatientAppointments extends AppCompatActivity {
                 status.setText(appoints.get(position).getStatus());
                 problem.setText(appoints.get(position).getProblem());
 
-                Dialog dialog = new Dialog(PatientAppointments.this);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setContentView(R.layout.appointment_dialog);
-                dialog.setContentView(content);
-                dialog.show();
+                AlertDialog.Builder dialog = new AlertDialog.Builder(PatientAppointments.this);
+                dialog.setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+
+                dialog.setView(content);
+
+                AlertDialog d = dialog.create();
+                d.show();
             }
         });
 
     }
+
 
     public void BookAppointment(View v){
 
@@ -99,8 +111,6 @@ public class PatientAppointments extends AppCompatActivity {
 
 
         if(requestCode == 1 && resultCode == RESULT_OK){
-
-            adapter.clear();
 
         }
 

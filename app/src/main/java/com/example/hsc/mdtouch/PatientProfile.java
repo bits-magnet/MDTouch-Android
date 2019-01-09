@@ -75,7 +75,6 @@ public class PatientProfile extends AppCompatActivity {
             case R.id.report:
 
                 AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-                dialog.setTitle("Report Issue");
                 dialog.setView(R.layout.report);
 
                 dialog.setPositiveButton("Done", new DialogInterface.OnClickListener() {

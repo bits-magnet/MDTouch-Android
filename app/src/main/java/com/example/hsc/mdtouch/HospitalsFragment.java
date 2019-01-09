@@ -1,6 +1,8 @@
 package com.example.hsc.mdtouch;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -23,7 +26,8 @@ import java.util.concurrent.ExecutionException;
 
 public class HospitalsFragment extends Fragment {
 
-    List<String> hospitals = new ArrayList<>();
+    List<MedicalServicesDetails> hospitals = new ArrayList<>();
+    List<String> hospitalsName = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,15 +49,48 @@ public class HospitalsFragment extends Fragment {
 
         ListView l1 = (ListView) view.findViewById(R.id.hospitals_services_list);
 
-        ArrayAdapter<String> a1 = new ArrayAdapter<>(getContext(),R.layout.list_item,hospitals);
+        ArrayAdapter<String> a1 = new ArrayAdapter<>(getContext(),R.layout.list_item,hospitalsName);
 
         TextView e1 = (TextView) view.findViewById(R.id.empty_hospitals);
 
         if (l1 != null) {
             l1.setAdapter(a1);
             l1.setEmptyView(e1);
-            Log.i("TAG", "" + l1);
         }
+
+        assert l1 != null;
+        l1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                View content = getLayoutInflater().inflate(R.layout.medical_services,null);
+
+                TextView name = (TextView) content.findViewById(R.id.name);
+                TextView address= (TextView) content.findViewById(R.id.address);
+                TextView city = (TextView) content.findViewById(R.id.city);
+                TextView contact = (TextView) content.findViewById(R.id.contact);
+
+                name.setText(hospitals.get(position).getName());
+                address.setText(hospitals.get(position).getAddress());
+                city.setText(hospitals.get(position).getCity());
+                contact.setText(hospitals.get(position).getContact());
+
+                AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+
+                dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+
+                dialog.setView(content);
+
+                AlertDialog d = dialog.create();
+                d.show();
+
+            }
+        });
 
         return view;
     }
@@ -94,8 +131,18 @@ public class HospitalsFragment extends Fragment {
 
                 for(int i=0;i<a1.length();i++){
 
-                    JSONObject b = a1.getJSONObject(i);
-                    hospitals.add(b.getString("name"));
+                    JSONObject a = a1.getJSONObject(i);
+
+                    String b = a.getString("name");
+                    String c = a.getString("address");
+                    String d = a.getString("city");
+                    String e = a.getString("state");
+                    String f = a.getString("contact");
+
+                    hospitalsName.add(b);
+
+                    MedicalServicesDetails m = new MedicalServicesDetails(b,c,d+", "+e,f);
+                    hospitals.add(m);
 
                 }
 

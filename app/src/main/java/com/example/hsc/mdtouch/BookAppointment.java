@@ -219,6 +219,9 @@ public class BookAppointment extends AppCompatActivity {
                     Toast.makeText(BookAppointment.this,"Appointment Added Successfully",Toast.LENGTH_LONG).show();
 
                     Intent i = new Intent();
+
+
+
                     setResult(RESULT_OK, i);
                     finish();
 
@@ -433,6 +436,31 @@ public class BookAppointment extends AppCompatActivity {
 
         }
 
+        private String HttpPost(String mUrl) throws IOException {
+            URL url = new URL(mUrl);
+
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Content-Type", "application/json; charset=utf-8");
+
+            setPostRequest(conn);
+
+            conn.connect();
+
+            return conn.getResponseMessage();
+
+        }
+
+        private void setPostRequest(HttpURLConnection conn) throws IOException {
+
+            OutputStream out = conn.getOutputStream();
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out,"UTF-8"));
+            writer.write(json.toString());
+            writer.flush();
+            writer.close();
+            out.close();
+        }
+
     }
 
     public class CheckPatient extends AsyncTask<Void, Void, Void> {
@@ -454,29 +482,5 @@ public class BookAppointment extends AppCompatActivity {
 
     }
 
-    private String HttpPost(String mUrl) throws IOException {
-        URL url = new URL(mUrl);
-
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setRequestMethod("POST");
-        conn.setRequestProperty("Content-Type", "application/json; charset=utf-8");
-
-        setPostRequest(conn);
-
-        conn.connect();
-
-        return conn.getResponseMessage();
-
-    }
-
-    private void setPostRequest(HttpURLConnection conn) throws IOException {
-
-        OutputStream out = conn.getOutputStream();
-        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out,"UTF-8"));
-        writer.write(json.toString());
-        writer.flush();
-        writer.close();
-        out.close();
-    }
 
 }

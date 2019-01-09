@@ -78,7 +78,6 @@ public class DoctorAppointments extends AppCompatActivity {
                 problem.setText(appoints.get(position).getProblem());
 
                 AlertDialog.Builder dialog = new AlertDialog.Builder(DoctorAppointments.this);
-                dialog.setTitle("Appointment");
 
                 dialog.setPositiveButton("Accept", new DialogInterface.OnClickListener() {
                     @Override

@@ -1,6 +1,8 @@
 package com.example.hsc.mdtouch;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -189,6 +191,29 @@ public class DoctorProfile extends AppCompatActivity {
                 finish();
 
                 return true;
+
+            case R.id.report:
+
+                AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+                dialog.setView(R.layout.report);
+
+                dialog.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+
+                dialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog.show();
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
 

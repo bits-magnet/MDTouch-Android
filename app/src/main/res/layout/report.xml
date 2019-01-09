@@ -5,11 +5,22 @@
     android:layout_width="match_parent">
 
     <TextView
-        android:layout_marginStart="12dp"
+        android:layout_width="match_parent"
+        android:text="Report Issue"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="#fff"
+        android:background="@color/colorPrimary"
+        android:padding="16dp"
+        android:gravity="center"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Issue With"
+        android:text="Issue With - "
         android:padding="16dp"
         android:textColor="#000"
         android:textSize="16sp"
@@ -17,7 +28,7 @@
         android:id="@+id/textView" />
 
     <Spinner
-        android:padding="16dp"
+        android:padding="14dp"
         android:entries="@array/report_items"
         android:id="@+id/spin_reports"
         android:layout_width="wrap_content"
@@ -27,6 +38,7 @@
 
     <android.support.design.widget.TextInputLayout
         android:padding="16dp"
+        android:layout_marginTop="14dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Title"
@@ -47,9 +59,10 @@
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
+        android:layout_marginBottom="30dp"
         android:padding="16dp"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
         android:hint="Description"
         android:textColorHint="#000"
         >

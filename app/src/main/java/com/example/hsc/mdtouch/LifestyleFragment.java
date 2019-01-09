@@ -35,10 +35,13 @@ public class LifestyleFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 TextView t = (TextView) view.findViewById(id);
-                if (t != null && !dataSnapshot.getValue(String.class).equals(""))
+
+                if (t != null) {
                     t.setText(dataSnapshot.getValue(String.class));
-                else if(t != null && dataSnapshot.getValue(String.class).equals(""))
-                    t.setText("Add Details");
+
+                    if(t.getText().equals(""))
+                        t.setText("Add Details");
+                }
 
             }
 
